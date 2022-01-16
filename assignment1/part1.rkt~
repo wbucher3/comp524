@@ -1,0 +1,13 @@
+#lang racket
+; PART 1
+; Problem 1 - countdown
+(define (countdown x)
+   (if (> x -1)
+    ; then 
+    (cons x (countdown (- x 1))) 
+    ; else
+    '()
+))
+
+; Problem 2 - removefirst
+
