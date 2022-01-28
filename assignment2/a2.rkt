@@ -18,16 +18,34 @@
       [("=") 'EQUALS]
       [("+") 'PLUS]
       [("/") 'DIVIDE]
-      [(";") 'SEMICOLON])))
+      [(";") 'SEMICOLON]
+      [("(") 'OPAREN]
+      [(")") 'CPAREN]
+      [("{") 'OBRACE]
+      [("}") 'CBRACE]
+      [(",") 'COMMA]
+      [(";") 'SEMICOLON]
+      [(".") 'PERIOD]
+)))
 
 (define (number-token str)
   (token 'NUM (string->number str)))
 
 (define (name-or-keyword-token str)
   (case str
-    [("read" "write")
+    [("def" "fun" "if" "not" "and" "or")
      (token (string->symbol (string-upcase (string-trim str))))]
     [else (token 'NAME (string->symbol str))]))
+
+
+
+;; my procedures!
+
+(define (invalid-token str)
+  (token 'INVALID str))
+
+(define (string-token str)
+  (token 'STRING ("the string")))
 
 ;;;; Lexing rules table
 ;;;;
@@ -35,10 +53,55 @@
 ;;;; 1. a regexp to detect a token at the beginning of a string
 ;;;; 2. a function (from above) to take the matched string and create a token
 
+;; TODO in re-table
+;; multiline comments /* */
+;; string tokens
+;; invalid
+
+;; NONE OF THESE ARE TESTED! AH!
+
 (define re-table
   (list
     (list #rx"^[ \r\n\t]+" skip-match) ; whitespace
     (list #rx"^//[^\n]+(\n|$)" skip-match) ; // comments
-    (list #rx"^[=+/;]" punctuation-token)
-    (list #rx"^[0-9]+" number-token)
-    (list #rx"^[A-Za-z]+" name-or-keyword-token)))
+    (list #rx"^/\\*(.)*\\*/" skip-match) ; // multiline comments /*  */
+    (list #rx"^[=+/;,.(){}]" punctuation-token)
+    (list #rx"^-?[0-9]+(\\.[0-9]+)?" number-token) ;; ints and floats!, untested, .x is not valid 
+    (list #rx"^[A-Za-z]+" name-or-keyword-token)
+    (list #rx"^\"(.)*\"" string-token) ;; basic with no double quotes inside allowed
+    (list #rx".+" invalid-token) ;; . is literally anything in regex
+
+))
+
+
+;; time to run it
+;; give a string and return a list with pairs that are all lexed shit
+
+;; THE PLAN
+;; first check if the string is empty, if it is, return empty
+;; if not, first make a master list to hold all the tokens
+;; check the string and slice off the front most token bit
+;; append that token list thingy to the master list and recur with the rest of the string
+;; base case is reached when the string is empty
+;; return the master list that is full of tokens!
+
+;; maybe make helper procedures to call for the slicing and finding bits
+
+#;(define (getFrontToken s)
+
+)
+
+
+#;(define (removeFrontToken s)
+
+)
+
+
+
+#;(define (tokenize input)
+    (if (equal? s "")
+        '()
+        (cons (getFrontToken s) (tokenize removeFrontToken s))
+    )
+
+)
