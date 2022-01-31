@@ -25,8 +25,7 @@
       [(".") 'PERIOD]
 )))
 
-(define (number-token str)
-  (token 'NUM (string->number str)))
+;; all these procedures were given to us in the tokenizer notes
 
 (define (int-token str)
   (token 'INT (string->number str)))
@@ -71,17 +70,16 @@
     (list #rx"^//[^\n]+(\n|$)" skip-match) ;; // comments 1
     (list #rx"^/\\*(.)*\\*/" skip-match) ;; multiline comments /*  */ 2
     (list #rx"^[;,.(){}]" punctuation-token) ;; pretty straight up  3
-    #;(list #rx"^-?[0-9]+(\\.[0-9]+)?(?=[\r\n\t (){},;.]|$)" number-token) ;; ints and floats! i wrote this before i realize they need separate tokens
     (list #rx"^-?[0-9]+[.][0-9]+(?=[\r\n\t (){},;.]|$)" float-token) ; 4 important that float comes first or it will be (int, period, int)
     (list #rx"^-?[0-9]+(?=[\r\n\t (){},;.]|$)" int-token) ; 5
     (list #rx"^[A-Za-z+/*<>=-]+[A-Za-z0-9+/*<>=-]*(?=[\r\n\t (){},;.]|$)" name-or-keyword-token) ;; cant start with number so 6 
-    (list #rx"^\"(.)*\"(?=[\r\n\t (){},;.]|$)" string-token) ;; basic impl with no double quotes inside allowed 7
+    (list #rx"^\"[^\"]*\"(?=[\r\n\t (){},;.]|$)" string-token) ;; basic impl with no double quotes inside allowed 7
     (list #rx".+" invalid-token) ;; . is literally anything in regex, everything should alert this one but it's okay bc it's last 8
 
 ))
 
 ;; THINGS TO FIX AFTER FIRST GRADER
-;; 1) dont allow double quotes in strings
+;; 1) dont allow double quotes in strings DONE!
 ;; 2) case for the empty string DONE!
 
 ;; time to run it
@@ -178,6 +176,7 @@
 
 print(+(\"5! is \", factorial(5)))")
 #;(display (tokenize " \"\" "))
+#;(tokenize "\"\"")
 
 ;; HUGE SHOUTOUT TO PIAZZA POST #61
 ;; https://piazza.com/class/ky7ri1riy0w3xj?cid=61
