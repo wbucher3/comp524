@@ -2,6 +2,7 @@
 
 ;; THIS CODE WAS PROVIDE BY PROFESSOR TERRELL
 ;; I DID NOT WRITE THIS CODE
+;; I did modify it though to match the grammar of a3!
 
 ;; To use this module, save this code as tokenize.rkt in the same directory as your
 ;; code and add the following line to your file:
