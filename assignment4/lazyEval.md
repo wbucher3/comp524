@@ -35,3 +35,10 @@ https://en.wikipedia.org/wiki/Lazy_evaluation
 https://towardsdatascience.com/what-is-lazy-evaluation-in-python-9efb1d3bfed0
 
 
+
+# Prompt 
+    Which topic did I pick?
+    What is it?
+    Why should you care?
+    Under what conditions would you find it useful?
+    Under those conditions, how would you use it?
