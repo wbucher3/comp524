@@ -1,0 +1,1 @@
+("8.3" ta6le ("503d61982739b0dfe762abb23514aa81560a2cc4" . "78531a6c8daeb33b4051f064eac097a119aa5d10") #"/home/will/Documents/comp524/assignment5/tokenize.rkt" (collects #"errortrace" #"errortrace-key.rkt") (collects #"racket" #"main.rkt") (collects #"racket" #"runtime-config.rkt") (collects #"rackunit" #"main.rkt"))
